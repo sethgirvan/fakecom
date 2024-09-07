@@ -25,7 +25,6 @@
 #include <termios.h>
 #include <unistd.h>
 
-
 int set_term_raw(int fd, int baud, int parity)
 {
 	struct termios tty;
@@ -37,21 +36,20 @@ int set_term_raw(int fd, int baud, int parity)
 	cfsetospeed(&tty, baud);
 	cfsetispeed(&tty, baud);
 
-	tty.c_iflag &= ~(
-			IGNBRK | // BREAK condition on input
-			BRKINT | // SIGINT controlling process on BREAK condition
-			PARMRK | // mark bytes with parity or framing errors
-			ISTRIP | // strip off the eight bit
-			INLCR | // translate NL to CR on input
-			IGNCR | // ignore CR on input
-			IXON ); // enable XON/XOFF flow control on output
+	tty.c_iflag &=
+		~(IGNBRK | // BREAK condition on input
+		  BRKINT | // SIGINT controlling process on BREAK condition
+		  PARMRK | // mark bytes with parity or framing errors
+		  ISTRIP | // strip off the eight bit
+		  INLCR | // translate NL to CR on input
+		  IGNCR | // ignore CR on input
+		  IXON); // enable XON/XOFF flow control on output
 
-	tty.c_lflag &= ~(
-			ECHO | // echo input characters
-			ECHONL | // echo newline character
-			ICANON | // canonical mode
-			ISIG | // generate signals for control character
-			IEXTEN); // implementation-defined input processing
+	tty.c_lflag &= ~(ECHO | // echo input characters
+			 ECHONL | // echo newline character
+			 ICANON | // canonical mode
+			 ISIG | // generate signals for control character
+			 IEXTEN); // implementation-defined input processing
 
 	tty.c_oflag &= ~OPOST; // implementation-defined output processing
 	tty.c_cflag &= ~(CSIZE | PARENB | CSTOPB);
@@ -93,12 +91,12 @@ int main(int argc, char *argv[])
 
 	for (int opt; (opt = getopt(argc, argv, "r")) != -1;) {
 		switch (opt) {
-			case 'r':
-				raw = true;
-				break;
-			default:
-				fprintf(stderr, "Unexpected option argument");
-				return EXIT_FAILURE;
+		case 'r':
+			raw = true;
+			break;
+		default:
+			fprintf(stderr, "Unexpected option argument");
+			return EXIT_FAILURE;
 		}
 	}
 

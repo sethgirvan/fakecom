@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
 	if (raw) {
 		if (set_term_raw(masterfd, B115200, 0))
-			return -1;
+			return EXIT_FAILURE;
 	}
 
 	fprintf(stderr, "%s\n", ptsname(masterfd));

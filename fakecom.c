@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 			raw = true;
 			break;
 		default:
-			fprintf(stderr, "Unexpected option argument");
+			fprintf(stderr, "Unexpected option argument\n");
 			return EXIT_FAILURE;
 		}
 	}
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 
 	int err = pthread_join(thread_ptm_to_stdout, NULL);
 	if (err) {
-		fprintf(stderr, "pthread_join(): %s", strerror(err));
+		fprintf(stderr, "pthread_join(): %s\n", strerror(err));
 		return EXIT_FAILURE;
 	}
 
